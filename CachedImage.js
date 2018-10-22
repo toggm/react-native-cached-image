@@ -46,6 +46,7 @@ class CachedImage extends React.Component {
     static propTypes = {
         renderImage: PropTypes.func.isRequired,
         activityIndicatorProps: PropTypes.object.isRequired,
+        imageCacheManager: PropTypes.object,
 
         // ImageCacheManager options
         ...ImageCacheManagerOptionsPropTypes,
@@ -115,6 +116,10 @@ class CachedImage extends React.Component {
     }
 
     getImageCacheManager() {
+        // try to get ImageCacheManager from props
+        if (this.props.imageCacheManager) {
+          return this.props.imageCacheManager();
+        }
         // try to get ImageCacheManager from context
         if (this.context && this.context.getImageCacheManager) {
             return this.context.getImageCacheManager();
