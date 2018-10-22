@@ -14,6 +14,7 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
         useQueryParamsInCacheKey: false,
         cacheLocation: fs.getCacheDir(),
         allowSelfSignedSSL: false,
+        urlResolver: (url) => Promise.resolve(url))
     };
 
     // apply default options
@@ -78,7 +79,9 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
             return cacheUrl(
                 url,
                 options,
-                filePath => fs.downloadFile(url, filePath, options.headers)
+                filePath =>
+                  defaultOptions.urlResolver(url)
+                    .then((downloadUrl) => fs.downloadFile(downloadUrl, filePath, options.headers))
             );
         },
 
