@@ -14,20 +14,13 @@ module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, pat
         useQueryParamsInCacheKey: false,
         cacheLocation: fs.getCacheDir(),
         allowSelfSignedSSL: false,
-        urlResolver: (url) => Promise.resolve(url))
+        urlResolver: (url) => Promise.resolve(url)
     };
 
     // apply default options
     _.defaults(defaultOptions, defaultDefaultOptions);
 
-    function isCacheable(url) {
-        return _.isString(url) && (_.startsWith(url.toLowerCase(), 'http://') || _.startsWith(url.toLowerCase(), 'https://'));
-    }
-
     function cacheUrl(url, options, getCachedFile) {
-        if (!isCacheable(url)) {
-            return Promise.reject(new Error('Url is not cacheable'));
-        }
         // allow CachedImage to provide custom options
         _.defaults(options, defaultOptions);
         // cacheableUrl contains only the needed query params
