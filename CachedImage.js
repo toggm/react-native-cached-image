@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const React = require('react');
 const ReactNative = require('react-native');
+const ReactNativeNetinfo = require('react-native-netinfo');
 
 const PropTypes = require('prop-types');
 
