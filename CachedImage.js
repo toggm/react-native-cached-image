@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const React = require('react');
 const ReactNative = require('react-native');
-const ReactNativeNetinfo = require('react-native-netinfo');
+const ReactNativeNetInfo = require('react-native-netinfo');
 
 const PropTypes = require('prop-types');
 
@@ -14,10 +14,13 @@ const flattenStyle = ReactNative.StyleSheet.flatten;
 const ImageCacheManager = require('./ImageCacheManager');
 
 const {
+  NetInfo
+} = ReactNativeNetInfo;
+
+const {
     View,
     ImageBackground,
     ActivityIndicator,
-    NetInfo,
     Platform,
     StyleSheet,
 } = ReactNative;
