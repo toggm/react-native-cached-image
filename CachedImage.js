@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const React = require('react');
 const ReactNative = require('react-native');
-const ReactNativeNetInfo = require('react-native-netinfo');
+const NetInfo require('@react-native-community/netinfo');
 
 const PropTypes = require('prop-types');
 
@@ -12,10 +12,6 @@ const ImageCacheManagerOptionsPropTypes = require('./ImageCacheManagerOptionsPro
 const flattenStyle = ReactNative.StyleSheet.flatten;
 
 const ImageCacheManager = require('./ImageCacheManager');
-
-const {
-  NetInfo
-} = ReactNativeNetInfo;
 
 const {
     View,
@@ -84,12 +80,12 @@ class CachedImage extends React.Component {
 
     componentWillMount() {
         this._isMounted = true;
-        NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+        NetInfo.addEventListener('connectionChange', this.handleConnectivityChange);
         // initial
-        NetInfo.isConnected.fetch()
-            .then(isConnected => {
+        NetInfo.fetch()
+            .then(state => {
                 this.safeSetState({
-                    networkAvailable: isConnected
+                    networkAvailable: state.isConnected
                 });
             });
 
@@ -98,7 +94,7 @@ class CachedImage extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+        NetInfo.removeEventListener('connectionChange', this.handleConnectivityChange);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -140,9 +136,9 @@ class CachedImage extends React.Component {
         return this.setState(newState);
     }
 
-    handleConnectivityChange(isConnected) {
+    handleConnectivityChange(state) {
         this.safeSetState({
-            networkAvailable: isConnected
+            networkAvailable: state.isConnected
         });
     }
 
