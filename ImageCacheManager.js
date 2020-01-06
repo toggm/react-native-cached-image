@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const fsUtils = require('./utils/fsUtils');
 const pathUtils = require('./utils/pathUtils');
-const MemoryCache = require('react-native-clcasher/MemoryCache').default;
+const MemoryCache = require('react-native-casher/MemoryCache').default;
 
 module.exports = (defaultOptions = {}, urlCache = MemoryCache, fs = fsUtils, path = pathUtils) => {
 
