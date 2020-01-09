@@ -78,7 +78,7 @@ class CachedImage extends React.Component {
         this.renderLoader = this.renderLoader.bind(this);
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this._isMounted = true;
         this.unsubscribe = NetInfo.addEventListener(this.handleConnectivityChange);
         // initial
@@ -99,11 +99,11 @@ class CachedImage extends React.Component {
         }
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        if (!_.isEqual(this.props.source, nextProps.source)) {
-            this.processSource(nextProps.source);
-        }
-    }
+    componentDidUpdate(prevProps, prevState) {
+      if (!_.isEqual(this.props.source, prevProps.source)) {
+          this.processSource(this.props.source);
+      }
+     }
 
     setNativeProps(nativeProps) {
         try {
