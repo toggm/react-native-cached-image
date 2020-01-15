@@ -1,13 +1,13 @@
 'use strict';
 
-import {AsyncStorage} from '@react-native-community/async-storage';
+import asyncStorage from '@react-native-community/async-storage';
 import MemoryCache from  'react-native-cacher/MemoryCache';
 
 const _ = require('lodash');
 
 const fsUtils = require('./utils/fsUtils');
 const pathUtils = require('./utils/pathUtils');
-const Cache = MemoryCache(AsyncStorage);
+const Cache = MemoryCache(asyncStorage);
 
 module.exports = (defaultOptions = {}, urlCache = Cache, fs = fsUtils, path = pathUtils) => {
 
